@@ -2,7 +2,7 @@ import re
 import time
 
 import pytest
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError, expect
 
 BASE_URL = "https://demoqa.com/"
 
@@ -38,8 +38,9 @@ def _add_table_record(page: Page, *, index: int, stamp: int) -> None:
 @pytest.mark.exercise_group_1
 @pytest.mark.exercise_2_2
 def test_web_tables_pagination_returns_to_one_page_after_delete(page: Page) -> None:
+    page.set_viewport_size({"width": 1920, "height": 1080})
     page.goto(BASE_URL, wait_until="domcontentloaded")
-    page.get_by_role("link", name="Elements").click()
+    page.get_by_role("heading", name="Elements").click()
     page.get_by_text("Web Tables", exact=True).click()
     expect(page).to_have_url(re.compile(r"/webtables"))
 
@@ -60,9 +61,14 @@ def test_web_tables_pagination_returns_to_one_page_after_delete(page: Page) -> N
     next_button.click()
     assert _pagination_numbers(page) == (2, 2)
 
-    delete_buttons = page.locator("span[title='Delete']")
-    expect(delete_buttons.first).to_be_visible()
-    delete_buttons.first.click()
+    delete_button = page.locator("table tbody tr:visible span[title='Delete']").first
+    expect(delete_button).to_be_visible()
+    delete_button.scroll_into_view_if_needed()
+    try:
+        delete_button.click(timeout=10000)
+    except PlaywrightTimeoutError:
+        # DemoQA can occasionally place a floating layout block over the icon in CI.
+        delete_button.evaluate("node => node.click()")
 
     assert _pagination_numbers(page) == (1, 1)
     expect(next_button).to_be_disabled()
