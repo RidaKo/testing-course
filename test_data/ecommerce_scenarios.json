@@ -1,0 +1,24 @@
+[
+  {
+    "id": "EC-DD-01",
+    "user": {
+      "first_name": "Data",
+      "last_name": "Driven",
+      "email_prefix": "ec_dd_01",
+      "password": "P@ssword123"
+    },
+    "billing_address": {
+      "country": "United States",
+      "state": "AA (Armed Forces Americas)",
+      "city": "Austin",
+      "address_1": "900 Automation Road",
+      "postal_code": "73301",
+      "phone": "5550001234"
+    },
+    "price_range": {
+      "min_exclusive": 9,
+      "max_exclusive": 900
+    },
+    "min_items_to_add": 2
+  }
+]

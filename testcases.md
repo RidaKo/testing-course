@@ -1,15 +1,15 @@
 
 ## Test case attributes:
 id: EC-01
-title: Registered user adds multiple items (<$900) (> $9) to cart and proceeds through checkout
-author: Ridas Kožukauskas
-target application: https://demowebshop.tricentis.com/
-environment: chromium(brave browser)
-test-type: Ui-automation test 
-pre-conditions: User is not logged in; site is available; test email not used before
-selection-rule: Add multiple items where price > $9
-post-conditions: User account exists; cart/order state saved depending on how far you proceed
-pass_criteria: user completes his order successfully
+title: Registered user adds multiple items (<$900) (> $9) to cart and proceeds through checkout  
+author: Ridas Kožukauskas  
+target application: https://demowebshop.tricentis.com/  
+environment: chromium(brave browser)  
+test-type: Ui-automation test     
+pre-conditions: User is not logged in; site is available; test email not used before  
+selection-rule: Add multiple items where price > $9  
+post-conditions: User account exists; cart/order state saved depending on how far you proceed  
+pass_criteria: user completes his order successfully  
 
 test_data:
     price_range: (<$900) (> $9)
